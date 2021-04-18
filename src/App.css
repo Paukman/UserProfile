@@ -32,7 +32,38 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.react-datepicker-wrapper {
+  display: table;
+}
+
+.input-group {
+  justify-content: center;
+  display: flex;
+  font-size: 1.25rem;
+  align-items: baseline;
+}
+
+.input-group-label {
+  text-align: right;
+}
+
+.input-group-input {
+  text-align: left;
+  font-size: 1.25rem;
+}
+
+.input-group-color {
+  text-align: left;
+  font-size: 1.25rem;
+  max-width: 200px;
+}
+
+.react-datepicker-wrapper {
+  display: table !important;
 }
