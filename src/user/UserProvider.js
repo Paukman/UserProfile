@@ -4,26 +4,27 @@ import useUser from "./useUser";
 
 export const UserContext = createContext();
 
-const UserProvider = props => {
+const UserProvider = (props) => {
   UserProvider.propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
   };
   const { children } = props;
 
   const user = useUser();
 
+
   return (
     <UserContext.Provider
       value={{
         user: {
-            userState: user.userState,
-            handleOnBlur: user.handleOnBlur,
-            handleOnDateChange: user.handleOnDateChange,
-            handleOnColorChange: user.handleOnColorChange,
-            handleOnNameChange: user.handleOnNameChange,
-            updateEditMode: user.updateEditMode,
-            undoChanges: user.undoChanges
-        }
+          userState: user.userState,
+          handleOnBlur: user.handleOnBlur,
+          handleOnDateChange: user.handleOnDateChange,
+          handleOnColorChange: user.handleOnColorChange,
+          handleOnNameChange: user.handleOnNameChange,
+          updateEditMode: user.updateEditMode,
+          undoChanges: user.undoChanges,
+        },
       }}
     >
       {children}
