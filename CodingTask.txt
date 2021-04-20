@@ -1,0 +1,7 @@
+Coding Challenge
+
+Create a user profile page using React.js that shows a user’s name, birthday, and favourite colour. 
+The page should not be editable by default. But provide one or more buttons that allow the user to update the information. 
+Once in the editing mode, provide a mechanism to persist / undo the changes and exit the editing mode. 
+Use the user’s favourite colour as the background colour for all the buttons. 
+Finally, if the user’s birthday is today then the profile page should wish the user a happy birthday. 
