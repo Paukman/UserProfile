@@ -46,11 +46,18 @@ describe("Testing useUser hook", () => {
     });
 
     expect(result.current.userState.editMode).toEqual(true);
+
+    //check color update as well
+    await act(async () => {
+        result.current.handleOnColorChange("#98a66b");
+    });
+
     await act(async () => {
       result.current.updateEditMode();
     });
 
     expect(result.current.userState.editMode).toEqual(false);
+    expect(result.current.selectedColor).toEqual("");
   });
 
   it("should update edit mode", async () => {
@@ -70,7 +77,7 @@ describe("Testing useUser hook", () => {
     expect(result.current.userState.editMode).toEqual(false);
   });
 
-  it("should handle color change", async () => {
+  it("should update color", async () => {
     const { result } = renderHook(() => useUser());
     await act(async () => {
       result.current.setState(state => ({
@@ -84,9 +91,10 @@ describe("Testing useUser hook", () => {
     });
 
     await act(async () => {
-      result.current.handleOnColorChange("#98a66b");
+      result.current.updateColor("#98a66b");
     });
 
+ 
     expect(result.current.userState.currentState.color).toEqual(
       "#98a66b"
     );
@@ -100,6 +108,11 @@ describe("Testing useUser hook", () => {
       "invColor"
     );
     expect(result.current.userState.prevStateAvilable).toEqual(true);
+
+    await act(async () => {
+        result.current.handleOnColorChange("#98a66b");
+    });
+    expect(result.current.selectedColor).toEqual("#98a66b");
   });
   it("should handle name change", async () => {
     const { result } = renderHook(() => useUser());

@@ -24,6 +24,7 @@ const useUser = () => {
     prevStateAvilable: false,
     isBirthdayToday: false
   });
+  const [selectedColor, setSelectedColor] = useState("");
 
   useEffect(() => {
     const isBirthdayToday = checkIfBirthdayIsToday(
@@ -58,13 +59,6 @@ const useUser = () => {
     }));
   };
 
-  const updateEditMode = () => {
-    setState(state => ({
-      ...state,
-      editMode: !state.editMode
-    }));
-  };
-
   const handleOnBlur = () => {
     setState(state => ({
       ...state,
@@ -94,6 +88,11 @@ const useUser = () => {
   };
 
   const handleOnColorChange = color => {
+    // this is temp choice, save cahnges will save color userState
+    setSelectedColor(color);
+  }
+
+  const updateColor = color => {
     updatePreviousState({ name: "color", value: userState.currentState.color });
     updatePreviousState({
       name: "invertedColor",
@@ -107,6 +106,18 @@ const useUser = () => {
         invertedColor: invertColor(color, 1)
       },
       prevStateAvilable: true
+    }));
+  };
+
+  const updateEditMode = () => {
+    if (userState.editMode && 
+      selectedColor !== userState.currentState.color){
+        updateColor(selectedColor);
+        setSelectedColor("");
+    }
+    setState(state => ({
+      ...state,
+      editMode: !state.editMode
     }));
   };
 
@@ -131,7 +142,9 @@ const useUser = () => {
     updateEditMode,
     undoChanges,
     setState,
-    updatePreviousState
+    updatePreviousState,
+    updateColor,
+    selectedColor
   };
 };
 
