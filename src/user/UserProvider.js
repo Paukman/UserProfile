@@ -4,14 +4,13 @@ import useUser from "./useUser";
 
 export const UserContext = createContext();
 
-const UserProvider = (props) => {
+const UserProvider = props => {
   UserProvider.propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired
   };
   const { children } = props;
 
   const user = useUser();
-
 
   return (
     <UserContext.Provider
@@ -23,8 +22,8 @@ const UserProvider = (props) => {
           handleOnColorChange: user.handleOnColorChange,
           handleOnNameChange: user.handleOnNameChange,
           updateEditMode: user.updateEditMode,
-          undoChanges: user.undoChanges,
-        },
+          undoChanges: user.undoChanges
+        }
       }}
     >
       {children}

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import {
-  formatBirtday,
+  formatBirthday,
   invertColor,
   swapCurrentAndPreviousState,
+  checkIfBirthdayIsToday
 } from "./utils";
 
 const useUser = () => {
@@ -10,105 +11,114 @@ const useUser = () => {
   // previousState and currentState would get this
   // value on loading
   const initialState = {
-    name: "My name is initial name",
+    name: "Elton John",
     birthday: new Date(),
     color: "#ffffff",
     invertedColor: invertColor("#ffffff"),
-    formattedBirthday: formatBirtday(new Date()),
+    formattedBirthday: formatBirthday(new Date())
   };
   const [userState, setState] = useState({
     previousState: initialState,
     currentState: initialState,
     editMode: false,
     prevStateAvilable: false,
-    isBirthdayToday: false,
+    isBirthdayToday: false
   });
 
   useEffect(() => {
-    const today = new Date();
-    const isBirthdayToday =
-      today.getDate() === userState.currentState.birthday.getDate() &&
-      today.getMonth() === userState.currentState.birthday.getMonth();
-    setState((state) => ({
+    const isBirthdayToday = checkIfBirthdayIsToday(
+      userState.currentState.birthday
+    );
+    setState(state => ({
       ...state,
-      isBirthdayToday,
+      isBirthdayToday
     }));
   }, [userState.currentState.birthday]);
 
   const updatePreviousState = ({ name, value }) => {
-    setState((state) => ({
+    setState(state => ({
       ...state,
       previousState: {
         ...state.previousState,
-        [name]: value,
-      },
+        [name]: value
+      }
     }));
   };
 
   const undoChanges = () => {
-    const { currentState, previousState } = swapCurrentAndPreviousState(
+    const { newCurrentState, newPreviousState } = swapCurrentAndPreviousState(
       userState.currentState,
       userState.previousState
     );
-    setState((state) => ({
+
+    setState(state => ({
       ...state,
-      currentState,
-      previousState,
+      currentState: newCurrentState,
+      previousState: newPreviousState
     }));
   };
 
   const updateEditMode = () => {
-    setState((state) => ({
+    setState(state => ({
       ...state,
-      editMode: !state.editMode,
+      editMode: !state.editMode
     }));
   };
 
   const handleOnBlur = () => {
-    setState((state) => ({
+    setState(state => ({
       ...state,
-      editMode: false,
+      editMode: false
     }));
   };
 
-  const handleOnDateChange = (birthday) => {
-    updatePreviousState("birthday", userState.birthday);
-    updatePreviousState("formattedBirthday", userState.formattedBirthday);
+  const handleOnDateChange = birthday => {
+    updatePreviousState({
+      name: "birthday",
+      value: userState.currentState.birthday
+    });
+    updatePreviousState({
+      name: "formattedBirthday",
+      value: userState.currentState.formattedBirthday
+    });
 
-    setState((state) => ({
+    setState(state => ({
       ...state,
       currentState: {
         ...state.currentState,
         birthday,
-        formattedBirthday: formatBirtday(birthday),
+        formattedBirthday: formatBirthday(birthday)
       },
-      prevStateAvilable: true, // as soon as something is changed, we have previous version as well
+      prevStateAvilable: true // as soon as something is changed, we have previous version as well
     }));
   };
 
-  const handleOnColorChange = (color) => {
-    updatePreviousState("color", userState.color);
-    updatePreviousState("invertedColor", userState.invertedColor);
-    setState((state) => ({
+  const handleOnColorChange = color => {
+    updatePreviousState({ name: "color", value: userState.currentState.color });
+    updatePreviousState({
+      name: "invertedColor",
+      value: userState.currentState.invertedColor
+    });
+    setState(state => ({
       ...state,
       currentState: {
         ...state.currentState,
-        color: color,
-        invertedColor: invertColor(color, 1),
+        color,
+        invertedColor: invertColor(color, 1)
       },
-      prevStateAvilable: true,
+      prevStateAvilable: true
     }));
   };
 
-  const handleOnNameChange = (name) => {
-    updatePreviousState("name", userState.name);
-    setState((state) => ({
+  const handleOnNameChange = name => {
+    updatePreviousState({ name: "name", value: userState.currentState.name });
+    setState(state => ({
       ...state,
       currentState: {
         ...state.currentState,
-        name,
+        name
       },
-      prevStateAvilable: true,
+      prevStateAvilable: true
     }));
   };
 
@@ -120,6 +130,8 @@ const useUser = () => {
     handleOnNameChange,
     updateEditMode,
     undoChanges,
+    setState,
+    updatePreviousState
   };
 };
 

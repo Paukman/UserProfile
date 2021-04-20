@@ -67,3 +67,7 @@
 .react-datepicker-wrapper {
   display: table !important;
 }
+
+.input-group-buttons {
+  display: flex;
+}

@@ -7,6 +7,7 @@ import {
   Label,
   Input,
   Jumbotron,
+  Row
 } from "reactstrap";
 import DatePicker from "react-datepicker";
 import { HexColorPicker } from "react-colorful";
@@ -22,12 +23,10 @@ const UserPage = () => {
     handleOnColorChange,
     handleOnNameChange,
     updateEditMode,
-    undoChanges,
+    undoChanges
   } = user;
 
   const { currentState: state, editMode, prevStateAvilable } = userState;
-
-  console.log(userState.prevStateAvilable);
 
   return (
     <div>
@@ -49,7 +48,7 @@ const UserPage = () => {
                 bsSize="lg"
                 value={state.name}
                 onBlur={() => handleOnBlur()}
-                onChange={(e) => {
+                onChange={e => {
                   handleOnNameChange(e.target.value);
                 }}
               />
@@ -66,7 +65,7 @@ const UserPage = () => {
                   selected={state.birthday}
                   disabled={!editMode}
                   onBlur={handleOnBlur}
-                  onChange={(date) => handleOnDateChange(date)}
+                  onChange={date => handleOnDateChange(date)}
                   dateFormat="MMMM d, yyyy"
                 />
               ) : (
@@ -93,7 +92,7 @@ const UserPage = () => {
                   name="color"
                   color={state.color}
                   onBlur={handleOnBlur}
-                  onChange={(color) => {
+                  onChange={color => {
                     handleOnColorChange(color);
                   }}
                 />
@@ -108,17 +107,18 @@ const UserPage = () => {
                   onChange={() => {}}
                   style={{
                     backgroundColor: state.color,
-                    color: state.invertedColor,
+                    color: state.invertedColor
                   }}
                 />
               )}
             </Col>
           </FormGroup>
-          <FormGroup row className="input-group">
+          <FormGroup className="input-group-buttons">
             <Button
               style={{
                 backgroundColor: state.color,
                 color: state.invertedColor,
+                marginRight: "10px"
               }}
               onClick={() => updateEditMode()}
             >
@@ -128,7 +128,7 @@ const UserPage = () => {
               <Button
                 style={{
                   backgroundColor: state.color,
-                  color: state.invertedColor,
+                  color: state.invertedColor
                 }}
                 onClick={() => undoChanges()}
               >
