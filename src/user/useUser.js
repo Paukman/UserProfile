@@ -89,10 +89,12 @@ const useUser = () => {
 
   const handleOnColorChange = color => {
     // this is temp choice, save cahnges will save color userState
+    console.log(color);
     setSelectedColor(color);
   }
 
   const updateColor = color => {
+
     updatePreviousState({ name: "color", value: userState.currentState.color });
     updatePreviousState({
       name: "invertedColor",
@@ -110,7 +112,7 @@ const useUser = () => {
   };
 
   const updateEditMode = () => {
-    if (userState.editMode && 
+    if (userState.editMode && selectedColor &&
       selectedColor !== userState.currentState.color){
         updateColor(selectedColor);
         setSelectedColor("");

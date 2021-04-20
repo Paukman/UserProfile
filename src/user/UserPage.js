@@ -55,34 +55,6 @@ const UserPage = () => {
             </Col>
           </FormGroup>
           <FormGroup row className="input-group">
-            <Label className="input-group-label" for="birthday" sm={2}>
-              Birthday
-            </Label>
-            <Col sm={10}>
-              {editMode ? (
-                <DatePicker
-                  className="input-group-input"
-                  selected={state.birthday}
-                  disabled={!editMode}
-                  onBlur={handleOnBlur}
-                  onChange={date => handleOnDateChange(date)}
-                  dateFormat="MMMM d, yyyy"
-                />
-              ) : (
-                <Input
-                  className="input-group-input"
-                  readOnly
-                  plaintext
-                  disabled
-                  name="Birthday"
-                  bsSize="lg"
-                  value={state.formattedBirthday}
-                  onChange={() => {}}
-                />
-              )}
-            </Col>
-          </FormGroup>
-          <FormGroup row className="input-group">
             <Label className="input-group-label" for="color" sm={2}>
               Favourite color
             </Label>
@@ -109,6 +81,34 @@ const UserPage = () => {
                     backgroundColor: state.color,
                     color: state.invertedColor
                   }}
+                />
+              )}
+            </Col>
+          </FormGroup>
+          <FormGroup row className="input-group">
+            <Label className="input-group-label" for="birthday" sm={2}>
+              Birthday
+            </Label>
+            <Col sm={10}>
+              {editMode ? (
+                <DatePicker
+                  className="input-group-input"
+                  selected={state.birthday}
+                  disabled={!editMode}
+                  onBlur={handleOnBlur}
+                  onChange={date => handleOnDateChange(date)}
+                  dateFormat="MMMM d, yyyy"
+                />
+              ) : (
+                <Input
+                  className="input-group-input"
+                  readOnly
+                  plaintext
+                  disabled
+                  name="Birthday"
+                  bsSize="lg"
+                  value={state.formattedBirthday}
+                  onChange={() => {}}
                 />
               )}
             </Col>
